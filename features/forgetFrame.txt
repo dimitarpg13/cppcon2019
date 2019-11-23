@@ -1,0 +1,81 @@
+class forget_frame {
+  public:
+    class promise_type final : public promise_return_destroy {
+      public:
+        void return_void() noexcept {
+            // nothing to do because this is `void` return
+        }
+        auto get_return_object() noexcept -> forget_frame {
+            return {this};
+        }
+        static auto get_return_object_on_allocation_failure() noexcept
+            -> forget_frame {
+            return {nullptr};
+        }
+        // void* operator new(size_t sz) noexcept {
+        //     return malloc(sz); // for tracing frame life cycle ...
+        // }
+        // void operator delete(void* ptr, size_t sz) noexcept {
+        //     free(ptr); // for tracing frame life cycle ...
+        // }
+    };
+
+  private:
+    forget_frame(const promise_type*) noexcept {
+        // the type truncates all given info about its frame
+    }
+
+  public:
+    // gcc-10 requires the type to be default constructible
+    forget_frame() noexcept = default;
+};
+
+class preserve_frame : public coroutine_handle<void> {
+  public:
+    class promise_type final : public promise_return_preserve {
+      public:
+        void return_void() noexcept {
+            // nothing to do because this is `void` return
+        }
+        auto get_return_object() noexcept -> preserve_frame {
+            return {this};
+        }
+        static auto get_return_object_on_allocation_failure() noexcept
+            -> preserve_frame {
+            return {nullptr};
+        }
+    };
+
+  private:
+    preserve_frame(promise_type* p) noexcept : coroutine_handle<void>{} {
+        if (p == nullptr)
+            return;
+        coroutine_handle<void>& ref = *this;
+        ref = coroutine_handle<promise_type>::from_promise(*p);
+    }
+
+  public:
+    // gcc-10 requires the type to be default constructible
+    preserve_frame() noexcept = default;
+};
+
+class save_frame_t final {
+  public:
+    // provide interface to receive handle
+    // when it's used as an operand of `co_await`
+    void await_suspend(coroutine_handle<void> coro) noexcept {
+        ref = coro;
+    }
+    constexpr bool await_ready() noexcept {
+        return false;
+    }
+    constexpr void await_resume() noexcept {
+    }
+
+  public:
+    explicit save_frame_t(coroutine_handle<void>& target) : ref{target} {
+    }
+
+  private:
+    coroutine_handle<void>& ref;
+};
