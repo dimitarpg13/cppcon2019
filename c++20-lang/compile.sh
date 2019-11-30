@@ -7,3 +7,4 @@ g++ -std=c++2a -I/opt/gcc-latest -L/opt/gcc-latest ./cpp_v20_ex_hashable.cpp -o 
 clang++ -std=c++11 -DDEBUG ./cpp_v11_ex_variadic_adder.cpp -o cpp_v11_ex_variadic_adder
 clang++ -std=c++11 -DDEBUG ./cpp_v11_ex_variadic_pair_comp.cpp -o cpp_v11_ex_variadic_pair_comp
 clang -cc1 -fdump-record-layouts ./cpp_v11_ex_dump_mem_layout.cpp | tee dump.txt
+clang -cc1 -fdump-record-layouts ./cpp_v11_ex1_semantics_of_data.cpp | tee dump1.txt
