@@ -1,26 +1,24 @@
 #include <iostream>
+#include <utility>
 #include <vector>
 
-template <typename T>
+template <typename VT>
 class MyType {
 public:
     template <typename D>
-    MyType(D&& data) { };
-    T _value; 
+    MyType(D&& data) : _value(data) { };
+    VT& value() { return _value; }
+protected:
+    VT _value; 
 };
-
-/*template <typename T>
-template <typename D>
-MyType<T>::MyType<D>(D&& data) {
-
-};*/
 
 template <typename T>
 class MyContainer {
 public:
-    bool add(T&& val) { _array.push_back(std::move(val)); }
+    template <typename TT>
+    void add(TT&& val) { _array.push_back(std::forward<TT>(val)); }
 
-    MyType<T>& operator[](const int);
+    T& operator[](const int idx) { return _array[idx]; }
 protected:
     std::vector<T> _array;
 };
@@ -33,6 +31,10 @@ access(Container& c, Index i)
 }
 
 int main (const int argc, const char * const argv[]) {
+  MyType<float> a(1001);
+  MyContainer<MyType<float>> container;
+  container.add(std::move(a));
+  std::cout << access(container, 0).value() << std::endl;
 
   return 0;
 }
