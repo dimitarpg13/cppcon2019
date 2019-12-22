@@ -7,7 +7,11 @@ class MyType {
 public:
     template <typename D>
     MyType(D&& data) : _value(data) { };
-    VT& value() { return _value; }
+    const VT& value() const { return _value; }
+    friend std::ostream & operator << (std::ostream &out, const MyType<VT> &c) {
+	   out << c.value() ;
+	   return out;
+    } 
 protected:
     VT _value; 
 };
@@ -34,7 +38,7 @@ int main (const int argc, const char * const argv[]) {
   MyType<float> a(1001);
   MyContainer<MyType<float>> container;
   container.add(std::move(a));
-  std::cout << access(container, 0).value() << std::endl;
+  std::cout << access(container, 0) << std::endl;
 
   return 0;
 }
