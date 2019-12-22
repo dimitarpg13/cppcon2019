@@ -28,8 +28,8 @@ protected:
 };
 
 template<typename Container, typename Index>
-decltype(auto)
-access(Container&& c, Index i)
+auto
+access(Container& c, Index i) -> decltype(std::forward<Container>(c)[i])
 {
   return std::forward<Container>(c)[i];
 }
