@@ -13,3 +13,4 @@ clang++ -std=c++11 ./cpp_v11_ex2_semantics_of_data.cpp -o cpp_v11_ex2_semantics_
 g++ -std=c++2a -I/opt/gcc-latest -L/opt/gcc-latest ./cpp_v20_ex_launder.cpp -o cpp_v20_ex_launder
 clang++ -std=c++2a cpp_v20_ex_tuple.cpp -o cpp_v20_ex_tuple
 clang++ -std=c++14 cpp_v14_ex_decltype_auto.cpp -o cpp_v14_ex_decltype_auto
+clang++ -std=c++11 cpp_v11_ex_decltype_auto.cpp -o cpp_v11_ex_decltype_auto
