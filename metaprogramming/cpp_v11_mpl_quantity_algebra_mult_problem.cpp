@@ -74,6 +74,7 @@ int main(const int argc, const char * const argv[]) {
   physics::quantity<float,physics::mass> m(5.0f);
   physics::quantity<float,physics::acceleration> a(9.8f);
   std::cout << "force = mass * accelleration = " << (m*a).value() << std::endl;
+  physics::quantity<float,force> f = m * a;
   return 0;
 }
 

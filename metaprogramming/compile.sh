@@ -6,3 +6,5 @@ clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl_integr_wrappers.cpp -o cpp_v11_mpl_integr_wrappers
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl_plus.cpp -o cpp_v11_mpl_plus
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl_quantity_algebra.cpp -o cpp_v11_mpl_quantity_algebra
+clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl_quantity_algebra_mult_problem.cpp -o cpp_v11_mpl_quantity_algebra_mult_problem > compile_error.txt 2>&1
+clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl_quantity_algebra_another_mult_problem.cpp -o cpp_v11_mpl_quantity_algebra_another_mult_problem

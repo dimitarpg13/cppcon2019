@@ -28,6 +28,10 @@ struct quantity
 {
   explicit quantity(T x) : m_value(x)
   {}
+  template <class OtherDimensions>
+  quantity(quantity<T,OtherDimensions> const& rhs)
+     : m_value(rhs.value())
+  {}
 
   T value() const { return m_value; }
 private:
@@ -74,6 +78,10 @@ int main(const int argc, const char * const argv[]) {
   physics::quantity<float,physics::mass> m(5.0f);
   physics::quantity<float,physics::acceleration> a(9.8f);
   std::cout << "force = mass * accelleration = " << (m*a).value() << std::endl;
+  physics::quantity<float,physics::force> f = m * a;
+  // should yield a force, not a mass!
+  physics::quantity<float,physics::mass> bogus = m * a;
+
   return 0;
 }
 
