@@ -3,6 +3,8 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <boost/mpl/transform.hpp>
+#include <boost/mpl/equal.hpp>
+#include <boost/static_assert.hpp>
 
 namespace mpl = boost::mpl;
 namespace physics {
@@ -32,6 +34,9 @@ struct quantity
   quantity(quantity<T,OtherDimensions> const& rhs)
      : m_value(rhs.value())
   {
+     BOOST_STATIC_ASSERT((
+       mpl::equal<Dimensions,OtherDimensions>::type::value
+     ));
   }
 
   T value() const { return m_value; }
