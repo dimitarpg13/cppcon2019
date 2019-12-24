@@ -1,7 +1,8 @@
+#include <iostream>
 #include <boost/mpl/vector_c.hpp>
 
 namespace mpl = boost::mpl;
-
+namespace physics {
 typedef mpl::vector_c<int,1,0,0,0,0,0,0> mass;
 typedef mpl::vector_c<int,0,1,0,0,0,0,0> length; // or position
 typedef mpl::vector_c<int,0,0,1,0,0,0,0> time;
@@ -31,9 +32,28 @@ private:
 
 };
 
+template <class T, class D>
+quantity<T,D>
+operator+(quantity<T,D> x, quantity<T,D> y)
+{
+   return quantity<T,D>(x.value() + y.value());
+};
+
+template <class T, class D>
+quantity<T,D>
+operator-(quantity<T,D> x, quantity<T,D> y)
+{
+  return quantity<T,D>(x.value() - y.value());
+};
+
+} // physics namespace
+
 int main(const int argc, const char * const argv[]) {
-  quantity<float,length> l( 1.0f );
-  quantity<float,mass> m( 2.0f );
+  physics::quantity<float,physics::length> l1( 1.0f );
+  physics::quantity<float,physics::length> l2( 2.0f );
+  physics::quantity<float,physics::mass> m( 2.0f );
+  auto res = l1 + l2;
+  std::cout << "l1 + l2 = " << res.value() << std::endl;
   return 0;
 }
 
