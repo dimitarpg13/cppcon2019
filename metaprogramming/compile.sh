@@ -13,3 +13,4 @@ clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl_quantity_algebra_final2.cpp -o cpp_v11_mpl_quantity_algebra_final2
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_mpl_quantity_algebra_final3.cpp -o cpp_v11_mpl_quantity_algebra_final3
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_higher_order_metafunc1.cpp -o cpp_v11_higher_order_metafunc1
+clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_higher_order_metafunc2.cpp -o cpp_v11_higher_order_metafunc2
