@@ -17,3 +17,4 @@ clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_hig
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_higher_order_metafunc3.cpp -o cpp_v11_higher_order_metafunc3
 clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_variadic_templ1.cpp -o cpp_v11_variadic_templ1
 clang++ -std=c++14 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_naive_placeholder_impl.cpp -o cpp_v11_naive_placeholder_impl
+clang++ -std=c++11 -I/opt/boost-build/include -L/opt/boost-build/lib cpp_v11_trivial_vector_gen.cpp -o cpp_v11_trivial_vector_gen
