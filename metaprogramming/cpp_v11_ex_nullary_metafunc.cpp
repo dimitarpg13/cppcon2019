@@ -2,33 +2,34 @@
 #include <vector>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/transform.hpp>
+#include "boost/mpl/at.hpp"
+#include <boost/type_traits/add_pointer.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
 namespace mpl = boost::mpl;
 using namespace mpl::placeholders;
 
-namespace vector_gen_tests {
+namespace nullary_metafunc_tests {
+  struct add_pointer_f 
+  {
+     template <class T>
+     struct apply : boost::add_pointer<T> {};
+  };
+  typedef mpl::vector<int, char*, double&> seq;
+  typedef mpl::transform<seq, boost::add_pointer<_> >::type calc_ptr_seq;
 
-// trivial std::vector generator
-template <class U>
-struct make_vector { typedef std::vector<U> type; };
-
-template <class T>
-using vector_of_t_impl1 = typename mpl::apply<make_vector<_>, T>::type;
-
-template <class T>
-using vector_of_t_impl2 = typename mpl::apply<std::vector<_>, T>::type;
+  struct int_p {
+     typedef int* type;
+  };
 
 }
 
 int main(const int argc, const char * const argv[]) {
-  vector_gen_tests::vector_of_t_impl1<int> vec;
-  vec.push_back(1);
-  vec.push_back(2);
-  std::cout << "vec[0] = " << vec[0] << ", vec[1] = " << vec[1] << std::endl;
-  vector_gen_tests::vector_of_t_impl2<int> vec2;
-  vec2.push_back(3);
-  vec2.push_back(4);
-  std::cout << "vec2[0] = " << vec2[0] << ", vec2[1] = " << vec2[1] << std::endl;
-
+  mpl::at_c<nullary_metafunc_tests::seq,0>::type t1;
+  mpl::at_c<nullary_metafunc_tests::calc_ptr_seq,0>::type t2;
+  BOOST_MPL_ASSERT(( boost::is_same< mpl::at_c<nullary_metafunc_tests::calc_ptr_seq,0>::type, int* > ));
   return 0;
 }
